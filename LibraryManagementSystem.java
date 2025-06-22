@@ -1,69 +1,84 @@
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class LibraryManagementSystem {
-    private static Library library = new Library("City Central Library", "123 Library Lane");
-    private static Scanner scanner = new Scanner(System.in);
-    private static final String LIBRARIAN_PASSWORD = "lib123";
+   private static Library library = new Library("City Central Library", "123 Library Lane");
+   private static Scanner scanner;
+   private static final String LIBRARIAN_PASSWORD = "lib123";
 
-    public static void main(String[] args) {
-        System.out.println("====================================");
-        System.out.println("      Welcome to the Library System  ");
-        System.out.println("====================================");
-        // Chapter 5: add() for book management
-        library.addBook(new Book("B001", "Harry Potter Series", "J.K. Rowling", 2000, 5));
-        library.addBook(new Book("B002", "The Lord of the Rings", "J.R.R. Tolkien", 2001, 4));
-        library.addBook(new Book("B003", "The Alchemist", "Paulo Coelho", 1988, 6));
-        
-        // Main loop for user login and menu selection
-        while (true) {
+   public static void main(String[] var0) {
+      JFrame var1 = new JFrame("Library Management System");
+      var1.setSize(400, 200);
+      var1.setDefaultCloseOperation(3);
+      JLabel var2 = new JLabel("Welcome to the Library!", 0);
+      var1.add(var2);
+      var1.setVisible(true);
+      System.out.println("====================================");
+      System.out.println("      Welcome to the Library System  ");
+      System.out.println("====================================");
+      library.addBook(new Book("B001", "Harry Potter Series", "J.K. Rowling", 2000, 5));
+      library.addBook(new Book("B002", "The Lord of the Rings", "J.R.R. Tolkien", 2001, 4));
+      library.addBook(new Book("B003", "The Alchemist", "Paulo Coelho", 1988, 6));
+
+      while(true) {
+         while(true) {
             System.out.println("\n====================================");
             System.out.println("Are you a member or librarian? (Enter your ID, or 0 to exit)");
             System.out.println("(Librarian ID: L001, Member ID: A... or S...)");
             System.out.println("====================================");
-            String inputId = scanner.nextLine();
-            if (inputId.equals("0")) {
-                System.out.println("Exiting system...");
-                return;
+            String var3 = scanner.nextLine();
+            if (var3.equals("0")) {
+               System.out.println("Exiting system...");
+               return;
             }
-            if (inputId.equals("L001")) {
-                librarianMenu(); // Librarian menu
-            } else if (inputId.startsWith("A") || inputId.startsWith("S")) {
-                Member member = library.findMember(inputId);
-                if (member == null) {
-                    member = registerMember(inputId); // Register new member if not found
-                    if (member == null) continue;
-                } else {
-                    System.out.println("You successfully logged in.");
-                }
-                memberMenu(member); // Member menu
+
+            if (var3.equals("L001")) {
+               librarianMenu();
+            } else if (!var3.startsWith("A") && !var3.startsWith("S")) {
+               System.out.println("Invalid ID format. Librarian ID is 'L001', Student starts with 'A', Staff with 'S'.");
             } else {
-                System.out.println("Invalid ID format. Librarian ID is 'L001', Student starts with 'A', Staff with 'S'.");
-            }
-        }
-    }
+               Member var4 = library.findMember(var3);
+               if (var4 == null) {
+                  var4 = registerMember(var3);
+                  if (var4 == null) {
+                     continue;
+                  }
+               } else {
+                  System.out.println("You successfully logged in.");
+               }
 
-    // Chapter 9: Exception Handling for invalid input
-    private static int getIntInput() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.print("Invalid input. Please enter a number: ");
+               memberMenu(var4);
             }
-        }
-    }
+         }
+      }
+   }
 
-    private static void librarianMenu() {
-        System.out.print("Enter librarian password: ");
-        String password = scanner.nextLine();
-        if (!password.equals(LIBRARIAN_PASSWORD)) {
-            System.out.println("Incorrect password. Access denied.");
-            return;
-        }
-        Librarian librarian = new Librarian("L001", "Admin Librarian", "admin@library.com");
-        while (true) {
+   private static int getIntInput() {
+      while(true) {
+         try {
+            return Integer.parseInt(scanner.nextLine());
+         } catch (NumberFormatException var1) {
+            System.out.print("Invalid input. Please enter a number: ");
+         }
+      }
+   }
+
+   private static void librarianMenu() {
+      System.out.print("Enter librarian password: ");
+      String var0 = scanner.nextLine();
+      if (!var0.equals("lib123")) {
+         System.out.println("Incorrect password. Access denied.");
+      } else {
+         Librarian var1 = new Librarian("L001", "Admin Librarian", "admin@library.com");
+
+         while(true) {
             System.out.println("\n========== Librarian Menu ==========");
             System.out.println("1. Add Book");
             System.out.println("2. Remove Book");
@@ -74,713 +89,430 @@ public class LibraryManagementSystem {
             System.out.println("7. View All Member Details");
             System.out.println("0. Logout");
             System.out.println("====================================");
-            int choice = getIntInput();
-            switch (choice) {
-                case 1:
-                    addBook(librarian);
-                    break;
-                case 2:
-                    removeBook(librarian);
-                    break;
-                case 3:
-                    checkAvailability();
-                    break;
-                case 4:
-                    editBook(librarian);
-                    break;
-                case 5:
-                    library.displayAllBooks();
-                    break;
-                case 6:
-                    checkMember(librarian);
-                    break;
-                case 7:
-                    viewAllMemberDetails();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+            int var2 = getIntInput();
+            switch(var2) {
+            case 0:
+               return;
+            case 1:
+               addBook(var1);
+               break;
+            case 2:
+               removeBook(var1);
+               break;
+            case 3:
+               checkAvailability();
+               break;
+            case 4:
+               editBook(var1);
+               break;
+            case 5:
+               library.displayAllBooks();
+               break;
+            case 6:
+               checkMember(var1);
+               break;
+            case 7:
+               viewAllMemberDetails();
+               break;
+            default:
+               System.out.println("Invalid choice. Please try again.");
             }
-        }
-    }
+         }
+      }
+   }
 
-    private static void checkMember(Librarian librarian) {
-        System.out.print("Enter Member ID to check: ");
-        String memberId = scanner.nextLine();
-        Member member = library.findMember(memberId);
-        if (member != null) {
-            System.out.println("\n--- Member Details ---");
-            System.out.println("ID: " + member.getId());
-            System.out.println("Name: " + member.getName());
-            System.out.println("Email: " + member.getEmail());
-            System.out.println("Type: " + member.getMemberType());
-            System.out.println("Max Books Allowed: " + member.getMaxBooks());
-            List<BorrowRecord> records = library.getBorrowRecords(member);
-            if (records.isEmpty()) {
-                System.out.println("No books currently borrowed.");
-            } else {
-                System.out.println("Borrowed Books:");
-                for (BorrowRecord record : records) {
-                    System.out.println(record);
-                }
-            }
-        } else {
-            System.out.println("Member not found.");
-        }
-    }
-
-    private static Member registerMember(String id) {
-        System.out.println("\n=== Member Registration ===");
-        if (!(id.startsWith("A") || id.startsWith("S"))) {
-            System.out.println("Invalid ID. Student ID must start with 'A', Staff with 'S'.");
-            return null;
-        }
-        System.out.print("Enter Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter Email: ");
-        String email = scanner.nextLine();
-        if (id.startsWith("A")) {
-            StudentMember student = new StudentMember(id, name, email, id);
-            library.registerMember(student);
-            System.out.println("Student member registered successfully!");
-            return student;
-        } else {
-            StaffMember staff = new StaffMember(id, name, email, "");
-            library.registerMember(staff);
-            System.out.println("Staff member registered successfully!");
-            return staff;
-        }
-    }
-
-    private static void addBook(Librarian librarian) {
-        System.out.println("\n=== Add New Book ===");
-        System.out.print("Enter Book ID (start with 'B'): ");
-        String id = scanner.nextLine();
-        if (!id.startsWith("B")) {
-            System.out.println("Book ID must start with 'B'.");
-            return;
-        }
-        if (library.findBook(id) != null) {
-            System.out.println("A book with this ID already exists. Please use a unique Book ID.");
-            return;
-        }
-        System.out.print("Enter Title: ");
-        String title = scanner.nextLine();
-        System.out.print("Enter Author: ");
-        String author = scanner.nextLine();
-        System.out.print("Enter Publication Year: ");
-        int year = getIntInput();
-        System.out.print("Enter Number of Copies: ");
-        int copies = getIntInput();
-        librarian.addBook(library, new Book(id, title, author, year, copies));
-        System.out.println("Book added successfully!");
-    }
-
-    private static void memberMenu(Member member) {
-        while (true) {
-            System.out.println("\n========== Member Menu =============");
-            System.out.println("1. Check Account Status");
-            System.out.println("2. Search Books");
-            System.out.println("3. Borrow Book");
-            System.out.println("4. Return Book");
-            System.out.println("5. View All Books");
-            System.out.println("0. Logout");
-            System.out.println("====================================");
-            int choice = getIntInput();
-            try {
-                switch (choice) {
-                    case 1:
-                        checkAccountStatus(member); // Show member's account status
-                        break;
-                    case 2:
-                        searchBooks(); // Search for books
-                        break;
-                    case 3:
-                        borrowBook(member); // Borrow a book
-                        break;
-                    case 4:
-                        returnBook(member); // Return a book
-                        break;
-                    case 5:
-                        library.displayAllBooks(); // Display all books in the library
-                        break;
-                    case 0:
-                        return;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
-                }
-            } catch (LibraryException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
-    }
-
-    private static void borrowBook(Member member) throws LibraryException {
-        List<BorrowRecord> records = library.getBorrowRecords(member);
-        int maxCanBorrow = member.getMaxBooks() - records.size();
-        if (maxCanBorrow <= 0) {
-            System.out.println("You have reached your book limit. Please return a book before borrowing another.");
-            return;
-        }
-        System.out.print("\nEnter book title or author to borrow: ");
-        String query = scanner.nextLine();
-        List<Book> results = library.searchBooks(query);
-        if (results.isEmpty()) {
-            System.out.println("No books found matching your search.");
-            return;
-        }
-        System.out.println("\nSearch Results:");
-        for (int i = 0; i < results.size(); i++) {
-            Book book = results.get(i);
-            System.out.println((i+1) + ". " + book.getId() + ": " + book.getTitle() + " by " + book.getAuthor() + " (" + book.getAvailableCopies() + " available)");
-        }
-        System.out.print("Select which book to borrow(Enter the number): ");
-        int choice = getIntInput();
-        if (choice < 1 || choice > results.size()) {
-            System.out.println("Invalid selection.");
-            return;
-        }
-        Book selectedBook = results.get(choice - 1);
-        int available = selectedBook.getAvailableCopies();
-        int maxCopies = Math.min(available, maxCanBorrow);
-        if (maxCopies <= 0) {
-            System.out.println("Invalid number of copies.");
-            return;
-        }
-        System.out.print("How many copies would you like to borrow? (1-" + maxCopies + "): ");
-        int numCopies = getIntInput();
-        if (numCopies < 1 || numCopies > maxCopies) {
-            System.out.println("You have reached your book limit.");
-            return;
-        }
-        int borrowed = 0;
-        for (int i = 0; i < numCopies; i++) {
-            try {
-                member.borrowBook(library, selectedBook.getId());
-                borrowed++;
-            } catch (LibraryException e) {
-                if (e.getMessage().contains("book limit")) {
-                    System.out.println("You have reached your book limit. Please return a book before borrowing another.");
-                } else {
-                    System.out.println("Error borrowing copy: " + e.getMessage());
-                }
-                break;
-            }
-        }
-        if (borrowed > 0) {
-            System.out.println("Successfully borrowed " + borrowed + " copy/copies of '" + selectedBook.getTitle() + "'. Enjoy your reading.");
-        }
-    }
-
-    private static void returnBook(Member member) throws LibraryException {
-        List<BorrowRecord> records = library.getBorrowRecords(member);
-        if (records.isEmpty()) {
-            System.out.println("You have no books to return.");
-            return;
-        }
-        // Group borrowed books by Book ID and count copies
-        Map<String, List<BorrowRecord>> bookToRecords = new LinkedHashMap<>();
-        for (BorrowRecord record : records) {
-            String bookId = record.getBook().getId();
-            bookToRecords.computeIfAbsent(bookId, k -> new ArrayList<>()).add(record);
-        }
-        List<String> bookIds = new ArrayList<>(bookToRecords.keySet());
-        System.out.println("\nYour Borrowed Books:");
-        for (int i = 0; i < bookIds.size(); i++) {
-            Book book = bookToRecords.get(bookIds.get(i)).get(0).getBook();
-            int count = bookToRecords.get(bookIds.get(i)).size();
-            System.out.println((i + 1) + ". " + book.getId() + ": " + book.getTitle() + " by " + book.getAuthor() + " (Borrowed: " + count + ")");
-        }
-        System.out.print("Select which book to return (Enter the number): ");
-        int choice = getIntInput();
-        if (choice < 1 || choice > bookIds.size()) {
-            System.out.println("Invalid selection.");
-            return;
-        }
-        String selectedBookId = bookIds.get(choice - 1);
-        List<BorrowRecord> selectedRecords = bookToRecords.get(selectedBookId);
-        int borrowedCount = selectedRecords.size();
-        System.out.print("How many copies would you like to return? (1-" + borrowedCount + "): ");
-        int numCopies = getIntInput();
-        if (numCopies < 1 || numCopies > borrowedCount) {
-            System.out.println("You can only return up to " + borrowedCount + " copy/copies of the selected book.");
-            return;
-        }
-        int returned = 0;
-        for (int i = 0; i < numCopies; i++) {
-            BorrowRecord recordToReturn = selectedRecords.get(i);
-            if (LocalDate.now().isAfter(recordToReturn.getDueDate())) {
-                long daysLate = ChronoUnit.DAYS.between(recordToReturn.getDueDate(), LocalDate.now());
-                double penalty = daysLate * 0.50; // $0.50 per day late
-                System.out.printf("This book is %d days late. Penalty: $%.2f%n", daysLate, penalty);
-                System.out.print("Pay penalty now? (Y/N): ");
-                String response = scanner.nextLine();
-                if (!response.equalsIgnoreCase("Y")) {
-                    System.out.println("Cannot return book without paying penalty.");
-                    break;
-                }
-                System.out.printf("Penalty of $%.2f paid.%n", penalty);
-            }
-            member.returnBook(library, selectedBookId);
-            returned++;
-        }
-        if (returned > 0) {
-            Book book = selectedRecords.get(0).getBook();
-            System.out.println("Successfully returned " + returned + " copy/copies of '" + book.getTitle() + "'. Thank you.");
-        }
-    }
-
-    private static void removeBook(Librarian librarian) {
-        System.out.print("\nEnter Book ID to remove: ");
-        String bookId = scanner.nextLine();
-        if (librarian.removeBook(library, bookId)) {
-            System.out.println("Book removed successfully!");
-        } else {
-            System.out.println("Book not found or could not be removed.");
-        }
-    }
-
-    private static void checkAvailability() {
-        System.out.print("\nEnter Book ID to check: ");
-        String bookId = scanner.nextLine();
-        Book book = library.findBook(bookId);
-        if (book != null) {
-            System.out.println("Book: " + book.getTitle());
-            System.out.println("Available Copies: " + book.getAvailableCopies());
-        } else {
-            System.out.println("Book not found.");
-        }
-    }
-
-    private static void editBook(Librarian librarian) {
-        System.out.print("\nEnter Book ID to edit: ");
-        String bookId = scanner.nextLine();
-        Book book = library.findBook(bookId);
-        
-        if (book == null) {
-            System.out.println("Book not found.");
-            return;
-        }
-        
-        System.out.println("\nCurrent Details:");
-        System.out.println("Title: " + book.getTitle());
-        System.out.println("Author: " + book.getAuthor());
-        System.out.println("Year: " + book.getYear());
-        System.out.println("Copies: " + book.getTotalCopies());
-        
-        System.out.println("\nEnter new details (leave blank to keep current):");
-        System.out.print("New Title: ");
-        String title = scanner.nextLine();
-        System.out.print("New Author: ");
-        String author = scanner.nextLine();
-        System.out.print("New Year: ");
-        String yearStr = scanner.nextLine();
-        System.out.print("New Copies: ");
-        String copiesStr = scanner.nextLine();
-        
-        if (!title.isEmpty()) book.setTitle(title);
-        if (!author.isEmpty()) book.setAuthor(author);
-        if (!yearStr.isEmpty()) book.setYear(Integer.parseInt(yearStr));
-        if (!copiesStr.isEmpty()) {
-            int newCopies = Integer.parseInt(copiesStr);
-            int difference = newCopies - book.getTotalCopies();
-            book.setTotalCopies(newCopies);
-            book.setAvailableCopies(book.getAvailableCopies() + difference);
-        }
-        
-        System.out.println("Book details updated successfully!");
-    }
-
-    private static void checkAccountStatus(Member member) {
-        System.out.println("\n=== Account Status ===");
-        System.out.println("Member ID: " + member.getId());
-        System.out.println("Name: " + member.getName());
-        System.out.println("Type: " + member.getMemberType());
-        System.out.println("Max Books Allowed: " + member.getMaxBooks());
-        List<BorrowRecord> records = library.getBorrowRecords(member);
-        if (records.isEmpty()) {
+   private static void checkMember(Librarian var0) {
+      System.out.print("Enter Member ID to check: ");
+      String var1 = scanner.nextLine();
+      Member var2 = library.findMember(var1);
+      if (var2 != null) {
+         System.out.println("\n--- Member Details ---");
+         System.out.println("ID: " + var2.getId());
+         System.out.println("Name: " + var2.getName());
+         System.out.println("Email: " + var2.getEmail());
+         System.out.println("Type: " + var2.getMemberType());
+         System.out.println("Max Books Allowed: " + var2.getMaxBooks());
+         List var3 = library.getBorrowRecords(var2);
+         if (var3.isEmpty()) {
             System.out.println("No books currently borrowed.");
-        } else {
-            System.out.println("\nBorrowed Books:");
-            int i = 1;
-            for (BorrowRecord record : records) {
-                Book book = record.getBook();
-                System.out.println(i + ". Title: " + book.getTitle() + ", Author: " + book.getAuthor() + ", Due Date: " + record.getDueDate());
-                i++;
-            }
-        }
-    }
+         } else {
+            System.out.println("Borrowed Books:");
+            Iterator var4 = var3.iterator();
 
-    private static void searchBooks() {
-        System.out.print("\nEnter search term (title or author): ");
-        String query = scanner.nextLine();
-        List<Book> results = library.searchBooks(query);
-        
-        if (results.isEmpty()) {
+            while(var4.hasNext()) {
+               BorrowRecord var5 = (BorrowRecord)var4.next();
+               System.out.println(var5);
+            }
+         }
+      } else {
+         System.out.println("Member not found.");
+      }
+
+   }
+
+   private static Member registerMember(String var0) {
+      System.out.println("\n=== Member Registration ===");
+      if (!var0.startsWith("A") && !var0.startsWith("S")) {
+         System.out.println("Invalid ID. Student ID must start with 'A', Staff with 'S'.");
+         return null;
+      } else {
+         System.out.print("Enter Name: ");
+         String var1 = scanner.nextLine();
+         System.out.print("Enter Email: ");
+         String var2 = scanner.nextLine();
+         if (var0.startsWith("A")) {
+            StudentMember var4 = new StudentMember(var0, var1, var2, var0);
+            library.registerMember(var4);
+            System.out.println("Student member registered successfully!");
+            return var4;
+         } else {
+            StaffMember var3 = new StaffMember(var0, var1, var2, "");
+            library.registerMember(var3);
+            System.out.println("Staff member registered successfully!");
+            return var3;
+         }
+      }
+   }
+
+   private static void addBook(Librarian var0) {
+      System.out.println("\n=== Add New Book ===");
+      System.out.print("Enter Book ID (start with 'B'): ");
+      String var1 = scanner.nextLine();
+      if (!var1.startsWith("B")) {
+         System.out.println("Book ID must start with 'B'.");
+      } else if (library.findBook(var1) != null) {
+         System.out.println("A book with this ID already exists. Please use a unique Book ID.");
+      } else {
+         System.out.print("Enter Title: ");
+         String var2 = scanner.nextLine();
+         System.out.print("Enter Author: ");
+         String var3 = scanner.nextLine();
+         System.out.print("Enter Publication Year: ");
+         int var4 = getIntInput();
+         System.out.print("Enter Number of Copies: ");
+         int var5 = getIntInput();
+         var0.addBook(library, new Book(var1, var2, var3, var4, var5));
+         System.out.println("Book added successfully!");
+      }
+   }
+
+   private static void memberMenu(Member var0) {
+      while(true) {
+         System.out.println("\n========== Member Menu =============");
+         System.out.println("1. Check Account Status");
+         System.out.println("2. Search Books");
+         System.out.println("3. Borrow Book");
+         System.out.println("4. Return Book");
+         System.out.println("5. View All Books");
+         System.out.println("0. Logout");
+         System.out.println("====================================");
+         int var1 = getIntInput();
+
+         try {
+            switch(var1) {
+            case 0:
+               return;
+            case 1:
+               checkAccountStatus(var0);
+               break;
+            case 2:
+               searchBooks();
+               break;
+            case 3:
+               borrowBook(var0);
+               break;
+            case 4:
+               returnBook(var0);
+               break;
+            case 5:
+               library.displayAllBooks();
+               break;
+            default:
+               System.out.println("Invalid choice. Please try again.");
+            }
+         } catch (LibraryException var3) {
+            System.out.println("Error: " + var3.getMessage());
+         }
+      }
+   }
+
+   private static void borrowBook(Member var0) throws LibraryException {
+      List var1 = library.getBorrowRecords(var0);
+      int var2 = var0.getMaxBooks() - var1.size();
+      if (var2 <= 0) {
+         System.out.println("You have reached your book limit. Please return a book before borrowing another.");
+      } else {
+         System.out.print("\nEnter book title or author to borrow: ");
+         String var3 = scanner.nextLine();
+         List var4 = library.searchBooks(var3);
+         if (var4.isEmpty()) {
             System.out.println("No books found matching your search.");
-        } else {
+         } else {
             System.out.println("\nSearch Results:");
-            for (Book book : results) {
-                System.out.println(book.getId() + ": " + book.getTitle() + 
-                                 " by " + book.getAuthor() + 
-                                 " (" + book.getAvailableCopies() + " available)");
+
+            int var5;
+            Book var6;
+            for(var5 = 0; var5 < var4.size(); ++var5) {
+               var6 = (Book)var4.get(var5);
+               System.out.println(var5 + 1 + ". " + var6.getId() + ": " + var6.getTitle() + " by " + var6.getAuthor() + " (" + var6.getAvailableCopies() + " available)");
             }
-        }
-    }
 
-    private static void viewAllMemberDetails() {
-        ArrayList<Member> members = library.getMembers();
-        if (members.isEmpty()) {
-            System.out.println("No members registered.");
-            return;
-        }
-        System.out.println("\n=== All Member Details ===");
-        for (Member member : members) {
-            System.out.println("ID: " + member.getId());
-            System.out.println("Name: " + member.getName());
-            System.out.println("Email: " + member.getEmail());
-            System.out.println("Type: " + member.getMemberType());
-            System.out.println("Max Books Allowed: " + member.getMaxBooks());
+            System.out.print("Select which book to borrow(Enter the number): ");
+            var5 = getIntInput();
+            if (var5 >= 1 && var5 <= var4.size()) {
+               var6 = (Book)var4.get(var5 - 1);
+               int var7 = var6.getAvailableCopies();
+               int var8 = Math.min(var7, var2);
+               if (var8 <= 0) {
+                  System.out.println("Invalid number of copies.");
+               } else {
+                  System.out.print("How many copies would you like to borrow? (1-" + var8 + "): ");
+                  int var9 = getIntInput();
+                  if (var9 >= 1 && var9 <= var8) {
+                     int var10 = 0;
 
-            // Show borrowed books for this member
-            List<BorrowRecord> records = library.getBorrowRecords(member);
-            if (records.isEmpty()) {
-                System.out.println("Borrowed Books: None");
+                     for(int var11 = 0; var11 < var9; ++var11) {
+                        try {
+                           var0.borrowBook(library, var6.getId());
+                           ++var10;
+                        } catch (LibraryException var13) {
+                           if (var13.getMessage().contains("book limit")) {
+                              System.out.println("You have reached your book limit. Please return a book before borrowing another.");
+                           } else {
+                              System.out.println("Error borrowing copy: " + var13.getMessage());
+                           }
+                           break;
+                        }
+                     }
+
+                     if (var10 > 0) {
+                        System.out.println("Successfully borrowed " + var10 + " copy/copies of '" + var6.getTitle() + "'. Enjoy your reading.");
+                     }
+
+                  } else {
+                     System.out.println("You have reached your book limit.");
+                  }
+               }
             } else {
-                System.out.println("Borrowed Books:");
-                int i = 1;
-                for (BorrowRecord record : records) {
-                    Book book = record.getBook();
-                    System.out.println("  " + i + ". " + book.getTitle() + " by " + book.getAuthor() + " (Due: " + record.getDueDate() + ")");
-                    i++;
-                }
+               System.out.println("Invalid selection.");
             }
-            System.out.println("-----------------------------");
-        }
-    }
-}
+         }
+      }
+   }
 
-class LibraryException extends Exception {
-    public LibraryException(String message) {
-        super(message);
-    }
-}
+   private static void returnBook(Member var0) throws LibraryException {
+      List var1 = library.getBorrowRecords(var0);
+      if (var1.isEmpty()) {
+         System.out.println("You have no books to return.");
+      } else {
+         LinkedHashMap var2 = new LinkedHashMap();
+         Iterator var3 = var1.iterator();
 
-// Chapter 6: Association - Library has Books and Members
-class Library {
-    private String name;
-    private String address;
-    // Chapter 5: ArrayList<Book> for books
-    private ArrayList<Book> books;
-    // Chapter 5: ArrayList<Member> for members
-    private ArrayList<Member> members;
-    // Chapter 5: HashMap for tracking borrow records
-    private HashMap<String, List<BorrowRecord>> borrowRecords;
-    
-    public Library(String name, String address) {
-        this.name = name;
-        this.address = address;
-        this.books = new ArrayList<>();
-        this.members = new ArrayList<>();
-        this.borrowRecords = new HashMap<>();
-    }
-    
-    // Chapter 5: add()/remove() for book management
-    public void addBook(Book book) {
-        if (!books.contains(book)) {
-            books.add(book);
-        }
-    }
-    public boolean removeBook(String bookId) {
-        return books.removeIf(book -> book.getId().equals(bookId));
-    }
-    public Book findBook(String bookId) {
-        for (Book book : books) {
-            if (book.getId().equals(bookId)) {
-                return book;
+         String var5;
+         while(var3.hasNext()) {
+            BorrowRecord var4 = (BorrowRecord)var3.next();
+            var5 = var4.getBook().getId();
+            ((List)var2.computeIfAbsent(var5, (var0x) -> {
+               return new ArrayList();
+            })).add(var4);
+         }
+
+         ArrayList var17 = new ArrayList(var2.keySet());
+         System.out.println("\nYour Borrowed Books:");
+
+         int var18;
+         for(var18 = 0; var18 < var17.size(); ++var18) {
+            Book var19 = ((BorrowRecord)((List)var2.get(var17.get(var18))).get(0)).getBook();
+            int var6 = ((List)var2.get(var17.get(var18))).size();
+            System.out.println(var18 + 1 + ". " + var19.getId() + ": " + var19.getTitle() + " by " + var19.getAuthor() + " (Borrowed: " + var6 + ")");
+         }
+
+         System.out.print("Select which book to return (Enter the number): ");
+         var18 = getIntInput();
+         if (var18 >= 1 && var18 <= var17.size()) {
+            var5 = (String)var17.get(var18 - 1);
+            List var20 = (List)var2.get(var5);
+            int var7 = var20.size();
+            System.out.print("How many copies would you like to return? (1-" + var7 + "): ");
+            int var8 = getIntInput();
+            if (var8 >= 1 && var8 <= var7) {
+               int var9 = 0;
+
+               for(int var10 = 0; var10 < var8; ++var10) {
+                  BorrowRecord var11 = (BorrowRecord)var20.get(var10);
+                  if (LocalDate.now().isAfter(var11.getDueDate())) {
+                     long var12 = ChronoUnit.DAYS.between(var11.getDueDate(), LocalDate.now());
+                     double var14 = (double)var12 * 0.5D;
+                     System.out.printf("This book is %d days late. Penalty: $%.2f%n", var12, var14);
+                     System.out.print("Pay penalty now? (Y/N): ");
+                     String var16 = scanner.nextLine();
+                     if (!var16.equalsIgnoreCase("Y")) {
+                        System.out.println("Cannot return book without paying penalty.");
+                        break;
+                     }
+
+                     System.out.printf("Penalty of $%.2f paid.%n", var14);
+                  }
+
+                  var0.returnBook(library, var5);
+                  ++var9;
+               }
+
+               if (var9 > 0) {
+                  Book var21 = ((BorrowRecord)var20.get(0)).getBook();
+                  System.out.println("Successfully returned " + var9 + " copy/copies of '" + var21.getTitle() + "'. Thank you.");
+               }
+
+            } else {
+               System.out.println("You can only return up to " + var7 + " copy/copies of the selected book.");
             }
-        }
-        return null;
-    }
-    public List<Book> searchBooks(String query) {
-        List<Book> results = new ArrayList<>();
-        String searchTerm = query.toLowerCase();
-        for (Book book : books) {
-            if (book.getTitle().toLowerCase().contains(searchTerm) || 
-                book.getAuthor().toLowerCase().contains(searchTerm)) {
-                results.add(book);
+         } else {
+            System.out.println("Invalid selection.");
+         }
+      }
+   }
+
+   private static void removeBook(Librarian var0) {
+      System.out.print("\nEnter Book ID to remove: ");
+      String var1 = scanner.nextLine();
+      if (var0.removeBook(library, var1)) {
+         System.out.println("Book removed successfully!");
+      } else {
+         System.out.println("Book not found or could not be removed.");
+      }
+
+   }
+
+   private static void checkAvailability() {
+      System.out.print("\nEnter Book ID to check: ");
+      String var0 = scanner.nextLine();
+      Book var1 = library.findBook(var0);
+      if (var1 != null) {
+         System.out.println("Book: " + var1.getTitle());
+         System.out.println("Available Copies: " + var1.getAvailableCopies());
+      } else {
+         System.out.println("Book not found.");
+      }
+
+   }
+
+   private static void editBook(Librarian var0) {
+      System.out.print("\nEnter Book ID to edit: ");
+      String var1 = scanner.nextLine();
+      Book var2 = library.findBook(var1);
+      if (var2 == null) {
+         System.out.println("Book not found.");
+      } else {
+         System.out.println("\nCurrent Details:");
+         System.out.println("Title: " + var2.getTitle());
+         System.out.println("Author: " + var2.getAuthor());
+         System.out.println("Year: " + var2.getYear());
+         System.out.println("Copies: " + var2.getTotalCopies());
+         System.out.println("\nEnter new details (leave blank to keep current):");
+         System.out.print("New Title: ");
+         String var3 = scanner.nextLine();
+         System.out.print("New Author: ");
+         String var4 = scanner.nextLine();
+         System.out.print("New Year: ");
+         String var5 = scanner.nextLine();
+         System.out.print("New Copies: ");
+         String var6 = scanner.nextLine();
+         if (!var3.isEmpty()) {
+            var2.setTitle(var3);
+         }
+
+         if (!var4.isEmpty()) {
+            var2.setAuthor(var4);
+         }
+
+         if (!var5.isEmpty()) {
+            var2.setYear(Integer.parseInt(var5));
+         }
+
+         if (!var6.isEmpty()) {
+            int var7 = Integer.parseInt(var6);
+            int var8 = var7 - var2.getTotalCopies();
+            var2.setTotalCopies(var7);
+            var2.setAvailableCopies(var2.getAvailableCopies() + var8);
+         }
+
+         System.out.println("Book details updated successfully!");
+      }
+   }
+
+   private static void checkAccountStatus(Member var0) {
+      System.out.println("\n=== Account Status ===");
+      System.out.println("Member ID: " + var0.getId());
+      System.out.println("Name: " + var0.getName());
+      System.out.println("Type: " + var0.getMemberType());
+      System.out.println("Max Books Allowed: " + var0.getMaxBooks());
+      List var1 = library.getBorrowRecords(var0);
+      if (var1.isEmpty()) {
+         System.out.println("No books currently borrowed.");
+      } else {
+         System.out.println("\nBorrowed Books:");
+         int var2 = 1;
+
+         for(Iterator var3 = var1.iterator(); var3.hasNext(); ++var2) {
+            BorrowRecord var4 = (BorrowRecord)var3.next();
+            Book var5 = var4.getBook();
+            System.out.println(var2 + ". Title: " + var5.getTitle() + ", Author: " + var5.getAuthor() + ", Due Date: " + var4.getDueDate());
+         }
+      }
+
+   }
+
+   private static void searchBooks() {
+      System.out.print("\nEnter search term (title or author): ");
+      String var0 = scanner.nextLine();
+      List var1 = library.searchBooks(var0);
+      if (var1.isEmpty()) {
+         System.out.println("No books found matching your search.");
+      } else {
+         System.out.println("\nSearch Results:");
+         Iterator var2 = var1.iterator();
+
+         while(var2.hasNext()) {
+            Book var3 = (Book)var2.next();
+            System.out.println(var3.getId() + ": " + var3.getTitle() + " by " + var3.getAuthor() + " (" + var3.getAvailableCopies() + " available)");
+         }
+      }
+
+   }
+
+   private static void viewAllMemberDetails() {
+      ArrayList var0 = library.getMembers();
+      if (var0.isEmpty()) {
+         System.out.println("No members registered.");
+      } else {
+         System.out.println("\n=== All Member Details ===");
+
+         for(Iterator var1 = var0.iterator(); var1.hasNext(); System.out.println("-----------------------------")) {
+            Member var2 = (Member)var1.next();
+            System.out.println("ID: " + var2.getId());
+            System.out.println("Name: " + var2.getName());
+            System.out.println("Email: " + var2.getEmail());
+            System.out.println("Type: " + var2.getMemberType());
+            System.out.println("Max Books Allowed: " + var2.getMaxBooks());
+            List var3 = library.getBorrowRecords(var2);
+            if (var3.isEmpty()) {
+               System.out.println("Borrowed Books: None");
+            } else {
+               System.out.println("Borrowed Books:");
+               int var4 = 1;
+
+               for(Iterator var5 = var3.iterator(); var5.hasNext(); ++var4) {
+                  BorrowRecord var6 = (BorrowRecord)var5.next();
+                  Book var7 = var6.getBook();
+                  System.out.println("  " + var4 + ". " + var7.getTitle() + " by " + var7.getAuthor() + " (Due: " + var6.getDueDate() + ")");
+               }
             }
-        }
-        return results;
-    }
-    
-    // Member management methods
-    public void registerMember(Member member) {
-        if (!members.contains(member)) {
-            members.add(member);
-        }
-    }
-    
-    public Member findMember(String memberId) {
-        for (Member member : members) {
-            if (member.getId().equals(memberId)) {
-                return member;
-            }
-        }
-        return null;
-    }
-    
-    // Borrow/return operations
-    public void borrowBook(Member member, String bookId) throws LibraryException {
-        Book book = findBook(bookId);
-        if (book == null) {
-            throw new LibraryException("Book not found");
-        }
-        if (book.getAvailableCopies() <= 0) {
-            throw new LibraryException("No available copies");
-        }
-        String recordKey = member.getId() + bookId;
-        List<BorrowRecord> recordList = borrowRecords.getOrDefault(recordKey, new ArrayList<>());
-        int totalBorrowed = 0;
-        for (List<BorrowRecord> list : borrowRecords.values()) {
-            for (BorrowRecord r : list) {
-                if (r.getMember().getId().equals(member.getId())) {
-                    totalBorrowed++;
-                }
-            }
-        }
-        if (totalBorrowed >= member.getMaxBooks()) {
-            throw new LibraryException("You have reached your book limit. Please return a book before borrowing another.");
-        }
-        BorrowRecord record = new BorrowRecord(member, book);
-        recordList.add(record);
-        borrowRecords.put(recordKey, recordList);
-        book.decreaseCopies();
-    }
-    
-    public void returnBook(Member member, String bookId) throws LibraryException {
-        String recordKey = member.getId() + bookId;
-        List<BorrowRecord> recordList = borrowRecords.get(recordKey);
-        if (recordList == null || recordList.isEmpty()) {
-            throw new LibraryException("No active borrow record found");
-        }
-        BorrowRecord record = recordList.remove(0);
-        Book book = record.getBook();
-        book.increaseCopies();
-        if (recordList.isEmpty()) {
-            borrowRecords.remove(recordKey);
-        } else {
-            borrowRecords.put(recordKey, recordList);
-        }
-    }
-    
-    // Record management methods
-    public List<BorrowRecord> getBorrowRecords(Member member) {
-        List<BorrowRecord> records = new ArrayList<>();
-        for (Map.Entry<String, List<BorrowRecord>> entry : borrowRecords.entrySet()) {
-            if (entry.getKey().startsWith(member.getId())) {
-                records.addAll(entry.getValue());
-            }
-        }
-        return records;
-    }
-    
-    // Display methods
-    public void displayAllBooks() {
-        System.out.println("\n=== All Books in " + name + " ===");
-        System.out.printf("%-10s %-30s %-20s %-6s %s\n", 
-                         "ID", "Title", "Author", "Year", "Availability");
-        System.out.println("----------------------------------------------------------------");
-        
-        for (Book book : books) {
-            System.out.printf("%-10s %-30s %-20s %-6d %d/%d\n",
-                            book.getId(),
-                            book.getTitle(),
-                            book.getAuthor(),
-                            book.getYear(),
-                            book.getAvailableCopies(),
-                            book.getTotalCopies());
-        }
-    }
-    
-    public void displayLibraryStatus() {
-        System.out.println("\n=== Library Status ===");
-        System.out.println("Name: " + name);
-        System.out.println("Address: " + address);
-        System.out.println("\nTotal Books: " + books.size());
-        System.out.println("Total Members: " + members.size());
-        System.out.println("Active Loans: " + borrowRecords.size());
-    }
-    
-    // Getters
-    public String getName() { return name; }
-    public String getAddress() { return address; }
-    public ArrayList<Book> getBooks() { return new ArrayList<>(books); }
-    public ArrayList<Member> getMembers() { return new ArrayList<>(members); }
-}
+         }
 
-// Chapter 6: Aggregation - Librarian manages Books
-class Librarian {
-    private String id;
-    private String name;
-    private String email;
-    public Librarian(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-    public void addBook(Library library, Book book) {
-        library.addBook(book);
-    }
-    public boolean removeBook(Library library, String bookId) {
-        return library.removeBook(bookId);
-    }
-}
+      }
+   }
 
-// Chapter 6: Composition - BorrowRecord composed of Member and Book
-class BorrowRecord {
-    private Member member;
-    private Book book;
-    private LocalDate borrowDate;
-    private LocalDate dueDate;
-    
-    public BorrowRecord(Member member, Book book) {
-        this.member = member;
-        this.book = book;
-        this.borrowDate = LocalDate.now();
-        this.dueDate = borrowDate.plusDays(member.getLoanPeriodDays());
-    }
-    
-    // Getters
-    public Member getMember() { return member; }
-    public Book getBook() { return book; }
-    public LocalDate getBorrowDate() { return borrowDate; }
-    public LocalDate getDueDate() { return dueDate; }
-    
-    @Override
-    public String toString() {
-        return book.getTitle() + " (Due: " + dueDate + ")";
-    }
-}
-
-class Book {
-    private String id;
-    private String title;
-    private String author;
-    private int year;
-    private int totalCopies;
-    private int availableCopies;
-
-    public Book(String id, String title, String author, int year, int copies) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.totalCopies = copies;
-        this.availableCopies = copies;
-    }
-
-    public String getId() { return id; }
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public int getYear() { return year; }
-    public int getTotalCopies() { return totalCopies; }
-    public int getAvailableCopies() { return availableCopies; }
-
-    public void setTitle(String title) { this.title = title; }
-    public void setAuthor(String author) { this.author = author; }
-    public void setYear(int year) { this.year = year; }
-    public void setTotalCopies(int totalCopies) { this.totalCopies = totalCopies; }
-    public void setAvailableCopies(int availableCopies) { this.availableCopies = availableCopies; }
-
-    // Methods to manage copies
-    public void decreaseCopies() {
-        if (availableCopies > 0) {
-            availableCopies--;
-        }
-    }
-
-    public void increaseCopies() {
-        if (availableCopies < totalCopies) {
-            availableCopies++;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return title + " by " + author + " (" + year + ") - " +
-               availableCopies + "/" + totalCopies + " available";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return id.equals(book.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-}
-
-// Chapter 7: Inheritance
-// Member
-// ├── StudentMember
-// └── StaffMember
-abstract class Member {
-    private String id;
-    private String name;
-    private String email;
-    public Member(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public String getEmail() { return email; }
-    // Chapter 7: Abstract methods
-    public abstract String getMemberType();
-    public abstract int getMaxBooks();
-    public abstract int getLoanPeriodDays();
-    public void borrowBook(Library library, String bookId) throws LibraryException {
-        library.borrowBook(this, bookId);
-    }
-    public void returnBook(Library library, String bookId) throws LibraryException {
-        library.returnBook(this, bookId);
-    }
-}
-
-class StudentMember extends Member {
-    private String studentId;
-    public StudentMember(String id, String name, String email, String studentId) {
-        super(id, name, email);
-        this.studentId = studentId;
-    }
-    // Chapter 8: Method overriding for getMemberType
-    @Override
-    public String getMemberType() { return "Student"; }
-    @Override
-    public int getMaxBooks() { return 3; } // Students: 3 book limit
-    @Override
-    public int getLoanPeriodDays() { return 14; } // 14-day loan period
-}
-
-class StaffMember extends Member {
-    private String department;
-    public StaffMember(String id, String name, String email, String department) {
-        super(id, name, email);
-        this.department = department;
-    }
-    // Chapter 8: Method overriding for getMemberType
-    @Override
-    public String getMemberType() { return "Staff"; }
-    @Override
-    public int getMaxBooks() { return 5; } // Staff: 5 book limit
-    @Override
-    public int getLoanPeriodDays() { return 28; } // 28-day loan period
+   static {
+      scanner = new Scanner(System.in);
+   }
 }
