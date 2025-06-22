@@ -11,9 +11,6 @@ In this system there are 3 main users: **Student, Staff and Librarian**. Student
 The Library Management System serves as a centralized platform for Student, Staff and Librarian to effectively manage their respective tasks and responsibilities.
 
 # How each topic (Ch5-Ch9) is implemented
-
-# Project Output
-
 # Chapter 5: ArrayList/Vector
 ArrayList used for:
 1. Storing collection of books (ArrayList<Book>)
@@ -64,3 +61,5 @@ Exception handling for:
 3. Member borrowing limits
 4. Removing non-existent books
 5. Try-catch blocks in all user interaction points
+
+# Project Output
