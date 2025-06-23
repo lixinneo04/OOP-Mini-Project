@@ -66,11 +66,68 @@ Exception handling for:
   5. Try-catch blocks in all user interaction points
 
 # 🖼️Project Output
-**1. Library Management System Login Interface**
+**1. Library Management System Login Interface**<br>
 ![Library Management System Login Interface](./images/Library%20Management%20System%20Login%20Interface.png)
 
-**2a(i). Login as Librarian**
-![Librarian Correct Password](./images/Library%20Correct%20Passsword.png)
+**2a(i). Login as Librarian**<br>
+![Librarian Correct Password](./images/Library%20Correct%20Password.png)
 
-**2a(ii). If Input Wrong Password, the message below will be shown and access will be denied**
-![Librarian Wrong Password](./images/Librarian%20Wrong%20Passsword.png)
+**2a(ii). If the input password is wrong, access will be denied.**<br>
+![Librarian Wrong Password](./images/Librarian%20Wrong%20Password.png)
+
+**2b. Add New Book**<br>
+![Add Book](./images/Add%20Book.png)
+
+**2c. Remove Book**<br>
+![Remove Book](./images/Remove%20Book.png)
+
+**2d. Check Book Availability**<br>
+![Check Book Availability](./images/Check%20Book%20Availability.png)
+
+**2e. Edit Book Details**<br>
+![Edit Book Details](./images/Edit%20Book.png)
+
+**2f. View All Books**<br>
+![View All Books](./images/Librarian%20View%20All%20Books.png)
+
+**2g. Check Member Details**<br>
+![Check Member Details](./images/Check%20Member%20Details.png)
+
+**2h. View All Member Details**<br>
+![View All Member Details](./images/View%20All%20Member%20Details.png)
+
+**3a(i). Login as Student Member**<br>
+![Student Register](./images/Student%20Register.png)
+
+**3a(ii). Login as Staff Member**<br>
+![Staff Register](./images/Staff%20Register.png)
+
+**3b(i). Check Account Status as Student Member**<br>
+![Student Check Account](./images/Student%20Check%20Account.png)
+
+**3b(i). Check Account Status as Staff Member**<br>
+![Staff Check Account](./images/Staff%20Check%20Account.png)
+
+**3c. Search Book**<br>
+![Search Books](./images/Search%20Book.png)
+
+**3d(i). Borrow Book**<br>
+![Borrow Book](./images/Borrow%20Book.png)
+
+**3d(ii). Borrow Book Limit**<br>
+**Since the limit of book allowed to be borrowed by a student member is 3, if a student try to borrow more than 3, below message will be shown.**<br>
+![Borrow Book](./images/Book%20Limit%20Reached.png)
+
+**Same goes for staff member except the limit is 5, if a staff try to borrow more than 5 below message will be shown.**<br>
+![Borrow Book](./images/Book%20Limit%20Reached%202.png)
+
+**3e. Return Book**<br>
+![Return Book](./images/Return%20Book.png)
+
+**3f. View All Books**<br>
+![View All Books](./images/Librarian%20View%20All%20Books.png)<br>
+**After books are borrowed, the copies will automatically update.**<br>
+![Updated View All Books](./images/Updated%20Member%20View%20All%20Books.png)
+
+**4. Exit System**<br>
+![Exit System](./images/Exit%20System.png)<br>
