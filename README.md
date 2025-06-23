@@ -66,3 +66,11 @@ Exception handling for:
   5. Try-catch blocks in all user interaction points
 
 # 🖼️Project Output
+**1. Library Management System Login Interface**
+![Library Management System Login Interface](./images/Library%20Management%20System%20Login%20Interface.png)
+
+**2a(i). Login as Librarian**
+![Librarian Correct Password](./images/Library%20Correct%20Passsword.png)
+
+**2a(ii). If Input Wrong Password, the message below will be shown and access will be denied**
+![Librarian Wrong Password](./images/Librarian%20Wrong%20Passsword.png)
