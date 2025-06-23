@@ -11,6 +11,8 @@ In this system there are 3 main users: **Student, Staff and Librarian**. Student
 
 The Library Management System serves as a centralized platform for Student, Staff and Librarian to effectively manage their respective tasks and responsibilities.
 
+Below is a UML Class Diagram that shows how classes interact with each other in the Library Management System.
+
 ![UML Class Diagram](./images/UML%20Class%20Diagram.png)
 # 💡How each topic (Ch5-Ch9) is implemented
 
