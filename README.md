@@ -11,7 +11,7 @@ In this system there are 3 main users: **Student, Staff and Librarian**. Student
 
 The Library Management System serves as a centralized platform for Student, Staff and Librarian to effectively manage their respective tasks and responsibilities.
 
-![UML Class Diagram](./images/UML%20Class%20Diagram.jpg)
+![UML Class Diagram](./images/UML%20Class%20Diagram.png)
 # 💡How each topic (Ch5-Ch9) is implemented
 
 # Chapter 5: ArrayList/Vector
