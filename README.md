@@ -116,10 +116,10 @@ Exception handling for:
 
 **3d(ii). Borrow Book Limit**<br>
 **Since the limit of book allowed to be borrowed by a student member is 3, if a student try to borrow more than 3, below message will be shown.**<br>
-![Borrow Book](./images/Book%20Limit%20Reached.png)
+![Student Book Limit Reached](./images/Book%20Limit%20Reached.png)
 
 **Same goes for staff member except the limit is 5, if a staff try to borrow more than 5 below message will be shown.**<br>
-![Borrow Book](./images/Book%20Limit%20Reached%202.png)
+![Staff Book Limit Reached](./images/Book%20Limit%20Reached%202.png)
 
 **3e. Return Book**<br>
 ![Return Book](./images/Return%20Book.png)
