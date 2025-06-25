@@ -108,8 +108,7 @@ Exception handling for:
   3. Member borrowing limits
   4. Removing non-existent books
   5. Try-catch blocks in all user interaction points
-<br>
-<br>
+
 # 🖼️Project Output
 **1. Library Management System Login Interface**<br>
 ![Library Management System Login Interface](./images/Library%20Management%20System%20Login%20Interface.png)
