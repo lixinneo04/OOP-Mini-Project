@@ -52,7 +52,7 @@ The Library Management System is divided into several classes: **LibraryManageme
 - Attributes: member, book, borrowDate, dueDate.
 - Used for: Tracking who borrowed what and when.
 
-# 🧠Key Object Oriented Programming Concept Used in UML Class Diagram<br>
+# 🧠Key Object-Oriented Programming Concept Used in UML Class Diagram<br>
 - **Inheritance:** StudentMember and StaffMember inherit from the abstract Member class.<br>
 - **Abstraction:** Abstract class. Member defines the overall behaviour for all member kinds.<br>
 - **Encapsulation:** Private fields with public getters and setters.<br>
