@@ -6,7 +6,7 @@ Group Member:<br>
   2. Neo Li Xin
 
 # 📄Project Description
-In this system there are 3 main users: **Student, Staff and Librarian**. Student and Staff are categoried as Member that can **check account status, search, borrow, return and view all books**. The Librarian serve as the admin who manages tasks such as **add book, remove book, check book availability, edit book, view all book, check member details and view all member details**. The key feature that separates Student and Teacher are their **ID** and the **limit of book they can borrow, which are 3 and 5 respectively**. 
+In this system there are 3 main users: **Student, Staff and Librarian**. Student and Staff are categorised as Member that can **check account status, search, borrow, return and view all books**. The Librarian serves as the admin who manages tasks such as **add book, remove book, check book availability, edit book, view all book, check member details and view all member details**. The key features that separate Student and Staff are their **faculty/department** and the **limit of book they can borrow, which are 3 and 5 respectively**. 
 
 The Library Management System serves as a centralized platform for Student, Staff and Librarian to effectively manage their respective tasks and responsibilities.
 
@@ -159,18 +159,18 @@ Exception handling for:
 ![Borrow Book](./images/Borrow%20Book.png)
 
 **3d(ii). Borrow Book Limit**<br>
-**Since the limit of book allowed to be borrowed by a student member is 3, if a student try to borrow more than 3 books, below message will be shown. This same logic applies for staff member too except the limit is 5 instead.**<br>
-![Student Book Limit Reached](./images/Book%20Limit%20Reached.png)
-
-**Same goes for staff member except the limit is 5, if a staff try to borrow more than 5 below message will be shown.**
+![Student Book Limit Reached](./images/Book%20Limit%20Reached.png)<br>
+Since the limit of book allowed to be borrowed by a student member is 3, if a student tries to borrow more than 3 books, the message above will be shown. This same logic applies to staff members too except the limit is 5 instead.<br>
 
 **3e. Return Book**<br>
 ![Return Book](./images/Return%20Book.png)
 
 **3f. View All Books**<br>
 ![View All Books](./images/Librarian%20View%20All%20Books.png)<br>
-**After books are borrowed, the copies will automatically update.**<br>
+After books are borrowed, the copies will automatically update as shown in the image below.
 ![Updated View All Books](./images/Updated%20Member%20View%20All%20Books.png)
 
 **4. Exit System**<br>
 ![Exit System](./images/Exit%20System.png)<br>
+
+This marks the end of our documentation. Thank you.
