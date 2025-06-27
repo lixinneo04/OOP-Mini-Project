@@ -149,7 +149,7 @@ Exception handling for:
 **3b(i). Check Account Status as Student Member**<br>
 ![Student Check Account](./images/Student%20Check%20Account.png)
 
-**3b(i). Check Account Status as Staff Member**<br>
+**3b(ii). Check Account Status as Staff Member**<br>
 ![Staff Check Account](./images/Staff%20Check%20Account.png)
 
 **3c. Search Book**<br>
