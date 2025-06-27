@@ -1,4 +1,4 @@
-# 💻OOP-Mini-Project
+# 💻OOP Mini Project
 For this project, we created a simple code demonstration of a **Library Management System**. The project details are fully documented in the next section.
 
 Group Member:<br>
